@@ -1,0 +1,6 @@
+# Virtualenv files
+venv/
+
+# Byte-compiled, cached, optimized files
+__pycache__/
+catboost_info/

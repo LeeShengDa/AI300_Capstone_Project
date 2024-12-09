@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form input, form select {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        form input:focus, form select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        form input[type="submit"] {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            grid-column: span 2;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+        form {
+            padding: 15px;
+            }
+
+        form input,
+        form select {
+            font-size: 14px;
+            padding: 8px;
+            }
+
+        form input[type="submit"] {
+            font-size: 14px;
+            padding: 10px;
+            }
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9fc;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .result h2 {
+            color: #007bff;
+        }
+
+        .result p {
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .result .highlight {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .result h3 {
+            font-size: 18px;
+            color: #444;
+        }
+
+        .result[aria-live="polite"] {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Churn Prediction</h1>
+        <form method="POST" action="#results">
+            <div class="form-grid">
+                <div>
+                    <label for="total_refunds">Total Refunds:</label>
+                    <input type="number" id="total_refunds" name="total_refunds" 
+                    value="0" step="0.01" onfocus="this.value=''" 
+                    onblur="if(this.value===''){this.value='0'}" min="0" required
+                    title="Enter a value >= 0">
+                </div>
+
+                <div>
+                    <label for="tenure_months">Tenure (Months):</label>
+                    <input type="number" id="tenure_months" name="tenure_months" 
+                    value="6" onfocus="this.value=''" 
+                    onblur="if(this.value===''){this.value='6'}"
+                    min="6" required
+                    title="Enter a value >= 6">
+                </div>
+
+                <div>
+                    <label for="num_referrals">Number of Referrals:</label>
+                    <input type="number" id="num_referrals" name="num_referrals" 
+                    value="0" onfocus="this.value=''" 
+                    onblur="if(this.value===''){this.value='0'}"
+                    min="0" required
+                    title="Enter a value >= 0">
+                </div>
+
+                <div>
+                    <label for="has_premium_tech_support">Premium Tech Support:</label>
+                    <select name="has_premium_tech_support" id="has_premium_tech_support">                     
+                        <option value="Yes">Yes</option>
+                        <option value="No" selected>No</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="contract_type">Contract Type:</label>
+                    <select name="contract_type" id="contract_type">
+                        <option value="Month-to-Month" selected>Month-to-Month</option>
+                        <option value="Two Year">Two Year</option>
+                        <option value="One Year">One Year</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="has_dependents">Has Dependents:</label>
+                    <select name="has_dependents" id="has_dependents">
+                        <option value="Yes">Yes</option>
+                        <option value="No" selected>No</option>
+                    </select>
+                </div>
+
+                <input type="submit" value="Predict">
+            </div>
+        </form>
+
+        {% if prediction is defined %}
+            <div id="results" class="result" aria-live="polite">
+                <p><strong>Prediction performed on:</strong> <span class="highlight">{{ timestamp }} (GMT+8)</span></p>
+                <p><strong>Inputs used:</strong> <span class="highlight">{{ input_variables }}</span></p>
+                <h3>Model Prediction:</h3>
+                <h2>{{ prediction }}</h2>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
