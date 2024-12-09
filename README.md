@@ -1,9 +1,13 @@
 # oct24-p02
 AI300 Capstone (oct24-p02)
+With CI/CD deployment (DOCKER and AWS)
 
 Author: Lee Sheng Da
+Date: December 2024
 
-AWS Public URL: http://ec2-13-215-174-234.ap-southeast-1.compute.amazonaws.com/
+AWS Public URL: http://ec2-54-169-209-186.ap-southeast-1.compute.amazonaws.com/
+
+Note: it is a http connection NOT https
 
 Details of mode:
 Final model chosen was the XGBoost Classifier as it outperforms Catboost model in Research phase
