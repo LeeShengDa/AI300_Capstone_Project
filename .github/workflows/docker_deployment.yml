@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
   
 env:
-  IMAGE_NAME: ai300-capstone-project-cicd   # Format: <dockerhub_account>/<repo>
+  IMAGE_NAME: leesda/ai300-capstone-project-cicd  # Format: <dockerhub_account>/<repo>
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
