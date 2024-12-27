@@ -185,11 +185,18 @@
             <div id="results" class="result" aria-live="polite">
                 <p><strong>Prediction performed on:</strong> <span class="highlight">{{ timestamp }} (GMT+8)</span></p>
                 <p><strong>Inputs used:</strong> <span class="highlight">{{ input_variables }}</span></p>
+                <p><strong>Prediction Counter:</strong> <span class="highlight">{{ prediction_count }}</span></p>
                 <h3>Model Prediction:</h3>
                 <h2>{{ prediction }}</h2>
             </div>
         {% endif %}
     </div>
-
+    <h1>History Log</h1>
+    <h2>Prediction History</h2>
+    <ul>
+        {% for entry in prediction_history %}
+            <li>{{ entry.timestamp }} - Prediction: {{ entry.prediction }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

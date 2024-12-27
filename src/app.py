@@ -7,10 +7,17 @@ import pytz
 
 app = Flask(__name__)
 
+# Initialize the global prediction counter and history
+prediction_counter = 0
+prediction_history = []
+
 # Method: Via HTML Form
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    global prediction_counter, prediction_history  # Declare as global to modify the global variables
     if request.method == 'POST':
+        # Increment the prediction counter
+        prediction_counter += 1
         form_input = dict(request.form)
 
         total_refunds = float(form_input['total_refunds'])
@@ -80,6 +87,16 @@ def home():
         model_inputs = pd.DataFrame(input_dict, index=[0])
         prediction = Model().predict(model_inputs)
 
+        # Store the prediction and timestamp in the history
+        prediction_history.append({
+            'timestamp': formatted_time_gmt8,
+            'prediction': prediction
+        })
+
+        # Keep only the last 10 predictions
+        if len(prediction_history) > 20:
+            prediction_history = prediction_history[-10:]
+
         # initialise only. 
         out_text = "Please enter variables and click Predict"
 
@@ -90,7 +107,7 @@ def home():
         elif prediction == False:
             out_text = "Customer is NOT expected to Churn next month"
 
-        return render_template('index.html',timestamp = formatted_time_gmt8, input_variables = str(raw_dict),prediction=out_text)
+        return render_template('index.html',timestamp = formatted_time_gmt8, input_variables = str(raw_dict),prediction=out_text, prediction_count=prediction_counter, prediction_history=prediction_history)
 
     return render_template('index.html')
 
