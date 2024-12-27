@@ -9,7 +9,7 @@ AWS Public URL: http://ec2-54-169-209-186.ap-southeast-1.compute.amazonaws.com/
 
 Note: it is a http connection NOT https
 
-Details of mode:
+Details of model:
 Final model chosen was the XGBoost Classifier as it outperforms Catboost model in Research phase
 XGBoost Classifier model is efficient, accurate, and well-suited for structured data.
 
